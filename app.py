@@ -29,9 +29,9 @@ def index():
 @app.route('/display')
 def display():
 	global UPLOAD_FOLDER, FILE_NAME
-	output = ocr(FILE_NAME)
+	#output = ocr(FILE_NAME)
 
-	return render_template('display.html', output = output)
+	return render_template('display.html')#, output = output)
 
 if __name__ == '__main__':
 	app.run(debug=True)
