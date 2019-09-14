@@ -24,6 +24,11 @@
   <link rel="stylesheet" href="/static/assets/js/aos/aos.css">
   <!-- All Muuri styling contained inline: -->
   <style>
+    .myshadow{
+      -moz-box-shadow:    0px 0px 5px 6px rgba(204, 204, 204, 0);
+  -webkit-box-shadow: 0px 0px 5px 6px rgba(204, 204, 204, 0);
+  box-shadow:         0px 0px 5px 6px rgba(0, 0, 0, 0.158);
+    }
     .controls {
       margin: 30px -10px;
     }
@@ -780,7 +785,7 @@
 
     <div class="container" style="width: 914px; padding: 32px;">
       <!-- Pageholder -->
-      <div style="background-color: #E9EBFC; padding: 54px 54px; height: 1100px;">
+      <div style="background-color: #E9EBFC; padding: 54px 54px; height: 1100px;" class="myshadow">
         <!-- Grid holder -->
         <h2 class="title is-dark is-semibold has-text-centered is-spaced">Title Here</h2>
 
@@ -1034,7 +1039,7 @@
       var dragCounter = 0;
 
       grid = new Muuri(gridElement, {
-        items: generateElements(20),
+        items: generateElements(18),
         layoutDuration: 400,
         layoutEasing: 'ease',
         dragEnabled: true,
@@ -1100,7 +1105,7 @@
       sortFieldValue = currentSort;
 
     }
-
+// key -->
     function addItems() {
 
       // Generate new elements.
@@ -1164,7 +1169,7 @@
     //
     // Generic helper functions
     //
-
+// key -->
     function generateElements(amount) {
 
       var ret = [];
