@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+{% extends "base.html" %}
+{% block content %}
+{% block title %}
+	Upload an image
+{% endblock %}
+
+{% block body %}
+	<form action="/upload" method="POST" enctype="multipart/form-data">
+		Upload a fucking file please <br>
+		<input type="file" name="file">
+		<button type="submit">fucking submit the image</button>
+	</form>
+
+{% endblock %}
+
+</html>
+{% endblock %}
