@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+{% extends "base.html" %}
+{% block content %}
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title> Skribbit </title>
+    <link rel="icon" type="image/png" href="/static/assets/images/favicon.png" />
+
+    <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+
+    <!--Core CSS -->
+    <link rel="stylesheet" href="/static/assets/css/bulma.css">
+    <link rel="stylesheet" href="/static/assets/css/core.css">
+    <!--Libraries-->
+    <link rel="stylesheet" href="/static/assets/fonts/cryptofont/css/cryptofont.min.css">
+    <link rel="stylesheet" href="/static/assets/js/aos/aos.css">
+
+</head>
+
+<body>
+    <!-- Pageloader -->
+    <div class="pageloader is-theme"></div>
+    <div class="infraloader is-active"></div>
+    <div class="dark-wrapper">
+    <div class="roadmap-wrapper">
+        <!-- Landing page Hero -->
+        <section class="hero is-medium">
+            <div class="hero-head">
+                <!-- Cloned navbar that comes in on scroll-->
+                <nav id="navbar-clone" class="navbar is-fixed is-dark">
+                    <div class="container">
+                        <!-- Brand -->
+                        <div class="navbar-brand">
+                            <a href="/" class="navbar-item">
+                                <img src="/static/assets/images/logo.png" alt="">
+                            </a>
+                            <!-- Responsive toggle -->
+                            <span class="navbar-burger burger" data-target="navbarMenu">
+                                <span></span>
+                                <span></span>s
+                                <span></span>
+                            </span>
+                        </div>
+                        <!-- Menu -->
+                        <div id="navbarMenu" class="navbar-menu light-menu">
+                            <div class="navbar-end">
+                                <!-- Menu item
+									<div class="navbar-item is-nav-link">
+										<a class="is-centered-responsive" href="#" target="_blank">
+											<img class="telegram" src="assets/images/logo/telegram.svg" alt="">
+											How to 
+										</a>
+									</div>
+									 -->
+                                <!-- About us -->
+                                <div class="navbar-item">
+                                    <a href="/about" class="button k-button k-primary raised has-gradient slanted">
+                                        <span class="text">About Us</span>
+                                        <span class="front-gradient"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Static navbar -->
+                <nav class="navbar is-light">
+                    <div class="container">
+                        <!-- Brand -->
+                        <div class="navbar-brand">
+                            <a href="/" class="navbar-item">
+                                <img src="/static/assets/images/logo.png" alt="" height="200px" width="150px">
+                            </a>
+                            <!-- Responsive toggle -->
+                            <span class="navbar-burger burger" data-target="navbarMenu">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </span>
+                        </div>
+                        <!-- Menu -->
+                        <div id="navbarMenu" class="navbar-menu light-menu">
+                            <div class="navbar-end">
+                                <!-- Menu item
+									<div class="navbar-item is-nav-link">
+										<a class="is-centered-responsive" href="#" target="_blank">
+											<img class="telegram" src="assets/images/logo/telegram.svg" alt="">
+											How to 
+										</a>
+									</div>
+									 -->
+                                <!-- About us -->
+                                <div class="navbar-item">
+                                    <a href="/about" class="button k-button k-primary raised has-gradient slanted">
+                                        <span class="text">About Us</span>
+                                        <span class="front-gradient"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Animated particles -->
+                <div id="particles-js"></div>
+            </div>
+    
+            <div class="hero-body has-text-centered">
+                <div class="columns">
+                    <div class="column is-6 is-offset-3">
+                        <div class="roadmap-image">
+                            <img src="/static/assets/images/illustrations/world.svg">
+                        </div>
+                        <h1 class="title is-2 is-light is-semibold is-spaced main-title">Scribbit's Tech Stack</h1>
+                        <h2 class="subtitle is-5 is-light is-thin">
+                            <b>Scribbit</b> is a robust and feature-rich digital scribe for your notes.
+                        </h2>
+                        <!-- CTA -->
+                        <p>
+                            <a href="#roadmap" class="button k-button k-primary raised has-gradient is-fat is-bold">
+                                <span class="text">More details</span>
+                                <span class="front-gradient"></span>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <section id="roadmap" class="main-timeline">
+            <ul>
+                <li>
+                    <div>
+                        <span class="item-title">Google Cloud API</span>
+                        <time>Computer Vision and NLP (with AutoML)</time>
+                        <span class="item-content">
+                            Scribbit is powered by Google's Cloud APIs and in-house <b>Machine Learning.</b>
+                            The <em>photo to text and handwriting processing</em> is handled by the <b>Computer Vision API,</b> while the <em>entity classification and topic modelling</em> are handled by the <b>Natural Language Processing API.</b>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <span class="item-title">Flask</span>
+                        <time>Backend Framework</time> 
+                        <span class="item-content">
+                            Scribbit is built on the lightning-fast Python-based <b>Flask framework.</b> The note syntax was inspired by the intuitive design of <b>markup languages.</b>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <span class="item-title">Bulma</span>
+                        <time>Frontend/CSS Framework</time> 
+                        <span class="item-content">
+                            Scribbit's UI/UX are styled with <b>Bulma.</b> The design philosophy was inspired by the vision of having a <b>seamless and modular</b> workspace.
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <span class="item-title">Muuri/EditorJS</span>
+                        <time>JS Libraries</time> 
+                        <span class="item-content">
+                            Scribbit's <b>workspace modularity</b> is in part powered by <b>Muuri</b>, and its editing capabilities by <b>Editor.js.</b>
+                        </span>
+                    </div>
+                </li>
+                
+            </ul>
+        </section>
+    
+    </div>
+    <footer class="krypton-footer">
+        <div class="container">
+            <!-- Logo -->
+            <div class="footer-logo">
+                <a href="/">
+                    <img src="/static/assets/images/logo.png" alt="">
+                    <div class="brand-subtitle">Helping your notes take off</div>
+                </a>
+            </div>
+            <br>
+            <p class="k-copyright">© 2019 | Scribbit. All Rights Reserved</p>
+            <br>
+        </div>
+    </footer>
+
+    <!-- Core js -->
+    <script src="/static/assets/js/app.js"></script>
+    <script src="/static/assets/js/aos/aos.js"></script>
+    <script src="/static/assets/js/main.js" defer="defer"></script>
+    <script src="/static/assets/js/roadmap.js"></script>
+    <script src="/static/assets/js/timeline.js"></script>
+    <script src="/static/assets/js/timer.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</body>
+
+{% endblock %}
+
+</html>
