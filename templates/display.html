@@ -22,6 +22,7 @@
   <!--Libraries-->
   <link rel="stylesheet" href="/static/assets/fonts/cryptofont/css/cryptofont.min.css">
   <link rel="stylesheet" href="/static/assets/js/aos/aos.css">
+  <!-- All Muuri styling contained inline: -->
   <style>
     .controls {
       margin: 30px -10px;
@@ -259,7 +260,6 @@
       font-family: 'Fira Sans', Helvetica, Arial, sans-serif;
       font-size: 18px;
       line-height: 1.5;
-      margin: 0 20px;
       color: #6e6e6e;
     }
 
@@ -542,13 +542,13 @@
     /* Footer */
 
     footer {
-      margin: 0 auto;
+/*       margin: 0 auto;
       max-width: 940px;
       text-align: center;
-      border-top: 2px solid #e5e5e5;
+      border-top: 2px solid #e5e5e5; */
       padding-top: 30px;
-      padding-bottom: 30px;
-    }
+/*       padding-bottom: 30px;
+ */    }
 
     footer p {
       margin: 0;
@@ -571,11 +571,7 @@
     /* Sections */
 
     section {
-      margin: 60px auto;
-      padding-top: 0;
       max-width: 940px;
-      border-top: 2px solid #e5e5e5;
-      text-align: left;
     }
 
     section.demo {
@@ -687,7 +683,6 @@
       z-index: 1;
     }
   </style>
-  </link>
 </head>
 
 
@@ -699,7 +694,7 @@
   <div class="pageloader is-theme"></div>
   <div class="infraloader is-active"></div>
   <div class="dark-wrapper">
-    <section class="hero is-transparent">
+    <section class="hero is-transparent" style="margin:auto;">
       <div class="hero-head">
 
         <!-- Cloned navbar -->
@@ -788,31 +783,11 @@
       <div style="background-color: #E9EBFC; padding: 54px 54px; height: 1100px;">
         <!-- Grid holder -->
         <h2 class="title is-dark is-semibold has-text-centered is-spaced">Title Here</h2>
-        <div class="grid">
-          <div class="item">
-            <div class="item-content">
-              <!-- Safe zone, enter your custom markup -->
-              This can be anything.
-              <!-- Safe zone ends -->
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="item-content">
-              <!-- Safe zone, enter your custom markup -->
-              ANYTHING2
-              <!-- Safe zone ends -->
-            </div>
-          </div>
-        </div>
 
         <!-- DEMO GOES HERE -->
 
         <section class="grid-demo">
-
-          <h2 class="section-title"><span>Grid Demo</span></h2>
-
-          <div class="controls cf">
+          <div class="controls cf" style="display: none;">
             <div class="control search">
               <div class="control-icon">
                 <i class="material-icons">&#xE8B6;</i>
@@ -855,8 +830,8 @@
                 <i class="material-icons">&#xE313;</i>
               </div>
               <select class="control-field layout-field form-control">
-                <option value="left-top" selected>Left Top</option>
-                <option value="left-top-fillgaps">Left Top (fill gaps)</option>
+                  <option value="left-top-fillgaps" selected>Left Top (fill gaps)</option>
+                <option value="left-top" >Left Top</option>
                 <option value="right-top">Right Top</option>
                 <option value="right-top-fillgaps">Right Top (fill gaps)</option>
                 <option value="left-bottom">Left Bottom</option>
@@ -880,7 +855,7 @@
 
 
   <footer class="krypton-footer">
-    <div class="container">
+    <div class="container" style="">
       <!-- Logo -->
       <div class="footer-logo">
         <a href="#">
