@@ -1,4 +1,4 @@
-import os
+import os, re
 from flask import *
 from ocr import ocr
 #from entity_seperation import seperate_entities
@@ -6,15 +6,19 @@ from ocr import ocr
 # INITIALIZATION -----------------------------------------------------------------------------------------------
 UPLOAD_FOLDER = 'uploads'
 FILE_NAME = ''
-output = ''
+ocrtext = ''
+#parts = ['topic', 'section', 'olist', 'ulist']
 
 syntax = {
-	'#': 'tit',
-	'##': 'subtit',
+	'#': 'title',
+	'##': 'subtitle',
 	'-': 'upoint',
 	')': 'opoint',
 	'*': 'def'
 }
+rsyntax = dict((b,a) for (a,b) in syntax.items())
+
+seps = ''.join([sep for sep in syntax.keys()])
 
 app = Flask(__name__, static_url_path='/static')
 app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -31,18 +35,55 @@ def upload():
 	return redirect(url_for('display'))
 
 def label(text):
-	global syntax
+	global syntax, seps
 	labelled = []
 
-	lines = text.split('\n')
+	titlesecs = re.split(r'^#\s', text)[1:]
 
-	for line in lines:
-		first = line.split(' ')[0]
+	print(titlesecs)
+
+	for titlesec in titlesecs:
+		title = titlesec.split('\n')[0]
+		subtitlesecs = re.split(r'##\s', titlesec)[1:]
+
+		print(subtitlesecs)
+
 		temp = {
-			'text': line,
-			'tag': syntax[first]
+			'text': title,
+			'tag': 'title',
+			'body': []
 		}
+
+		for subtitlesec in subtitlesecs: 
+			subtitle = subtitlesec.split('\n')[0]
+
+			temp2 = {
+				'text': subtitle,
+				'tag': 'subtitle',
+				'body': []
+				}
+
+			items = subtitlesec.split('\n')[1:]
+
+			for item in items:
+				if item != '':
+					splitted = item.split(' ')
+					first = splitted[0]
+					if first.endswith(')'):
+						first = first[-1]
+
+					temp3 = {
+						'text': ' '.join(splitted[1:]),
+						'tag': syntax[first],
+					}
+
+					temp2['body'].append(temp3)
+
+			temp['body'].append(temp2)
+
 		labelled.append(temp)
+
+	print(labelled)
 
 	return labelled
 
@@ -54,10 +95,12 @@ def index():
 
 @app.route('/display')
 def display():
-	global UPLOAD_FOLDER, FILE_NAME, output
-	#output = ocr(FILE_NAME)
+	global UPLOAD_FOLDER, FILE_NAME, ocrtext
+	ocrtext = ocr(FILE_NAME)
 
-	return render_template('display.html')#, output = output)
+	info = label(ocrtext)
+
+	return render_template('display.html')#, ocrtext = ocrtext)
 
 @app.route('/about')
 def about():
