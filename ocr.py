@@ -10,6 +10,7 @@ def ocr(FILE_NAME):
 
     image = types.Image(content=content)
     response = client.document_text_detection(image=image)
-    document = response.full_text_annotation.text
+    #document = response.full_text_annotation.text
 
-    return(document)
+    # Returns OCR text with \n formatting
+    return(response)
