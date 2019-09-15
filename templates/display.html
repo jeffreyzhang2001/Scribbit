@@ -4,7 +4,7 @@
 <html>
 
 <head>
-	<title>User Display</title>
+	<title>Your Scrib!</title>
 	<link rel="icon" type="image/png" href="/static/assets/images/favicon.png" />
 	<!-- <link rel="icon" href="img/favicon.ico"> -->
 	<meta charset="utf-8">
@@ -540,6 +540,14 @@
 				display: none;
 				}
 				}
+				/* TYPES OF TAGS */
+				.def {
+					font-style: italic;
+					font-weight: bold;
+				}
+				.eq {
+					background-color: yellow;
+				}
 			</style>
 </head>
 
@@ -650,7 +658,7 @@
 															<div class="board-item">
 																<div class="board-item-content">
 																	<div class="edit">
-																		<p>{{ point.text }}</p>
+																		<p class="{{ point.tag }}">{{ point.text }}</p>
 																	</div>
 																</div>
 															</div>
@@ -661,7 +669,7 @@
 														<div class="board-item">
 															<div class="board-item-content">
 																<div class="edit">
-																	<p>{{ item.text }}</p>
+																	<p class="{{ item.tag }}">{{ item.text }}</p>
 																</div>
 															</div>
 														</div>

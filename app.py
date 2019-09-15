@@ -15,6 +15,7 @@ syntax = {
 	'-': 'upoint',
 	')': 'opoint',
 	'*': 'def',
+	'=>': 'eq'
 }
 rsyntax = dict((b,a) for (a,b) in syntax.items())
 
