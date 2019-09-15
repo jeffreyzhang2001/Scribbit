@@ -39,37 +39,7 @@ def label(text):
 	global syntax, seps
 	labelled = []
 
-	split = text.split('\n')
-
-	new = []
-
-	switch = 0
-	for i in range(len(split)):
-		line = split[i]
-		if line and (line[0] in ['*', '-', '=', '#'] or line[1] == ')'):
-			if switch == 1:
-				# split[temp:temp2] = [' '.join(split[temp:temp2])]
-				sent = ' '.join(split[temp:temp2])
-				i += (temp2 - temp)
-				switch = 0
-				continue
-			else:
-				
-			temp = i
-			temp2 = temp
-
-		else:
-			temp2 = i + 1
-			switch = 1
-		
-		print(line)
-		try:
-			print(temp, temp2)
-		except:
-			print('temp2 dne')
-	joined = '\n'.join(split)[:-1]
-
-	titlesecs = re.split(r'(^|\s)#\s', joined)[2:]
+	titlesecs = re.split(r'(^|\s)#\s', text)[2:]
 
 	print(titlesecs)
 
