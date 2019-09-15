@@ -40,7 +40,7 @@ def label(text):
 
 	joined = ' '.join(text.split('\n'))
 
-	titlesecs = re.split(r'(^|\s)#\s', text)[1:]
+	titlesecs = re.split(r'(^|\s)#\s', text)[2:]
 
 	print(titlesecs)
 

@@ -21,20 +21,16 @@
 	<link rel="stylesheet" href="/static/assets/css/print-style.css" type="text/css" media="print" />
 	<!-- All Muuri styling contained inline: -->
 		<style>
+				div {
+					display: block;
+				}
+
 				.myshadow {
 					-moz-box-shadow: 0px 0px 5px 6px rgba(204, 204, 204, 0);
 					-webkit-box-shadow: 0px 0px 5px 6px rgba(204, 204, 204, 0);
 					box-shadow: 0px 0px 5px 6px rgba(0, 0, 0, 0.158);
 				}
-				.controls {
-					margin: 30px -10px;
-				}
-				.control {
-					position: relative;
-					float: left;
-					width: 25%;
-					padding: 0 10px;
-				}
+				/*
 				@media (max-width: 600px) {
 					.control {
 						float: none;
@@ -44,133 +40,8 @@
 					.control.layout {
 						margin: 0;
 					}
-				}
-				.control-icon {
-					position: absolute;
-					left: 10px;
-					top: 0;
-					width: 40px;
-					height: 40px;
-					line-height: 40px;
-					text-align: center;
-					z-index: 2;
-					pointer-events: none;
-				}
-				.control-field {
-					position: relative;
-					padding-left: 40px;
-					z-index: 1;
-				}
-				/* Grid */
-				.grid {
-					position: relative;
-					max-width: 960px;
-					margin: 0 -10px;
-					-moz-box-sizing: content-box;
-					-webkit-box-sizing: content-box;
-					box-sizing: content-box;
-				}
-				.item {
-					position: absolute;
-					width: 100px;
-					height: 100px;
-					line-height: 100px;
-					margin: 10px;
-					z-index: 1;
-					will-change: transform;
-				}
-				.item.muuri-item-positioning {
-					z-index: 2;
-				}
-				.item.muuri-item-dragging,
-				.item.muuri-item-releasing {
-					z-index: 9999;
-				}
-				.item.muuri-item-dragging {
-					cursor: move;
-				}
-				.item.muuri-item-hidden {
-					z-index: 0;
-				}
-				.item.h2 {
-					height: 220px;
-					line-height: 220px;
-				}
-				.item.w2 {
-					width: 220px;
-				}
-				.item-content {
-					position: relative;
-					width: 100%;
-					height: 100%;
-				}
-				.card {
-					position: absolute;
-					left: 0;
-					top: 0;
-					right: 0;
-					bottom: 0;
-					text-align: center;
-					font-size: 24px;
-					font-weight: 300;
-					background-color: rgba(255, 255, 255, 0.9);
-					border: 2px solid;
-					color: #333;
-					border-radius: 4px;
-					-webkit-transition: all 0.2s ease-out;
-					-moz-transition: all 0.2s ease-out;
-					-ms-transition: all 0.2s ease-out;
-					-o-transition: all 0.2s ease-out;
-					transition: all 0.2s ease-out;
-				}
-				.item.red .card {
-					color: #f94a7a;
-				}
-				.item.green .card {
-					color: #2ac06d;
-				}
-				.item.blue .card {
-					color: #4A9FF9;
-				}
-				.card-id {
-					position: absolute;
-					left: 7px;
-					top: 0;
-					height: 30px;
-					line-height: 30px;
-					text-align: left;
-					font-size: 16px;
-					font-weight: 400;
-				}
-				.card-remove {
-					position: absolute;
-					right: 0;
-					top: 0;
-					width: 30px;
-					height: 30px;
-					line-height: 30px;
-					text-align: center;
-					font-size: 20px;
-					font-weight: 400;
-					cursor: pointer;
-					-moz-transform: scale(0);
-					-webkit-transform: scale(0);
-					-o-transform: scale(0);
-					-ms-transform: scale(0);
-					transform: scale(0);
-					-webkit-transition: all 0.15s ease-out;
-					-moz-transition: all 0.15s ease-out;
-					-ms-transition: all 0.15s ease-out;
-					-o-transition: all 0.15s ease-out;
-					transition: all 0.15s ease-out;
-				}
-				.card:hover>.card-remove {
-					-moz-transform: scale(1);
-					-webkit-transform: scale(1);
-					-o-transform: scale(1);
-					-ms-transform: scale(1);
-					transform: scale(1);
-				}
+				}*/
+			
 				/* Grid Footer */
 				.grid-footer {
 					margin: 60px 0;
@@ -557,17 +428,6 @@
 					font-weight: 500;
 					font-size: 20px;
 				}
-				@media (max-width: 600px) {
-					.feature-list-item {
-						padding-left: 0;
-					}
-					.feature-list-icon {
-						margin: -4px 10px 0 0;
-						width: 24px;
-						font-size: 24px;
-						line-height: inherit;
-					}
-				}
 				/* Author */
 				.author {
 					margin: 60px 0;
@@ -810,22 +670,9 @@
 											{% endfor %}
 										</div>
 									{% endfor %}
-<<<<<<< HEAD
 							</div>
-						{% endfor %}
-=======
-								</div>
-							</div>
-						</div>
->>>>>>> 52045857741aecc320fe262a188d17091512c807
-						
-						<div class="grid-footer">
-							<button class="add-more-items btn btn-primary" onclick="addBox()"><i class="material-icons">&#xE145;</i>Add more items</button>
-						</div>
-						{% endif %}
 						{% endfor %}
 					</div>
-					{% endfor %}
 				</div>
 
 				<div class="grid-footer">
