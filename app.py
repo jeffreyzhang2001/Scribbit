@@ -43,31 +43,26 @@ def label(text):
 
 	new = []
 
-	switch = 0
-	for i in range(len(split)):
-		line = split[i]
-		if line and (line[0] in ['*', '-', '=', '#'] or line[1] == ')'):
-			if switch == 1:
-				# split[temp:temp2] = [' '.join(split[temp:temp2])]
-				sent = ' '.join(split[temp:temp2])
-				i += (temp2 - temp)
-				switch = 0
-				continue
-			else:
-				
-			temp = i
-			temp2 = temp
+	print(split)
 
-		else:
+	temp = -1
+	temp2 = 0
+	for i in range(len(split)):
+		print('i: ' + str(i))
+		print(new)
+		line = split[i]
+		if line and (line[0] in ['*', '-', '-', '=', '#'] or line[1] == ')'):
+			sent = ' '.join(split[temp:temp2])
+			new.append(sent)
+			print(sent)
+			temp = i 
 			temp2 = i + 1
-			switch = 1
+		else:
+			print(line)
+			temp2 = i + 1
 		
-		print(line)
-		try:
-			print(temp, temp2)
-		except:
-			print('temp2 dne')
-	joined = '\n'.join(split)[:-1]
+		print(temp, temp2)
+	joined = '\n'.join(new)
 
 	titlesecs = re.split(r'(^|\s)#\s', joined)[2:]
 
