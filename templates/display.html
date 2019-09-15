@@ -813,7 +813,7 @@
 						</div>
 						
 						<div class="grid-footer">
-							<button class="add-more-items btn btn-primary"><i class="material-icons">&#xE145;</i>Add more items</button>
+							<button class="add-more-items btn btn-primary" onclick="addBox()"><i class="material-icons">&#xE145;</i>Add more items</button>
 						</div>
 					</div>
 				</div>
@@ -849,7 +849,21 @@
 					}
 				}
 
-			// JESS THING -----------------------------------------------------------------------------------
+				function addBox () {
+					var newBox = document.createElement("div");
+					newBox.setAttribute("class", "board-item");
+					var newBox2 = document.createElement("div");
+					newBox2.setAttribute("class", "board-item-content")
+					var newBox3 = document.createElement("div");
+					newBox3.setAttribute("id", `edit${i}`);
+					i++;
+					newBox.innerHTML = "New Concept!";
+					newBox2.append(newBox3);
+					newBox.append(newBox2);
+					var reference = document.getElementById(`edit${i - 2}`);
+					document.parentNode.insertBefore(newBox, reference.nextSibling);
+				}
+
 				var itemContainers = [].slice.call(document.querySelectorAll('.board-column-content'));
 				var columnGrids = [];
 				var boardGrid;
