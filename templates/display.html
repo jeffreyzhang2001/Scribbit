@@ -771,7 +771,7 @@
 					<!-- Pageholder -->
 					<div style="background-color: #E9EBFC; padding: 54px 54px; height: 1100px;" class="myshadow">
 						<!-- Grid holder -->
-						<h2 class="title is-dark is-semibold has-text-centered is-spaced">{{ocrtext.0.text}}</h2>
+						<h2 class="title is-dark is-semibold has-text-centered is-spaced edit">{{ocrtext.0.text}}</h2>
 						<!-- ************************************************************************************ -->
 						<!-- DEMO GOES HERE --------------------------------------------------------------------- -->
 						<!-- ************************************************************************************ -->
@@ -779,7 +779,7 @@
 							{% for subtitle in ocrtext.0.body %}
 								<div class="board-column subtitle">
 									<div class="board-column-header">
-										<div id="edit">
+										<div class="edit">
 											<p>{{ subtitle.text }}</p>
 										</div>
 									</div>
@@ -789,7 +789,7 @@
 												<div class="board-column-content">
 													<div class="board-item">
 														<div class="board-item-content">
-															<div id="edit1">
+															<div class="edit">
 																<p>{{ point.text }}</p>
 															</div>
 														</div>
@@ -800,7 +800,7 @@
 											<div class="board-column-content">
 												<div class="board-item">
 													<div class="board-item-content">
-														<div id="edit1">
+														<div class="edit">
 															<p>{{ item.text }}</p>
 														</div>
 													</div>
@@ -842,6 +842,13 @@
 			<script src="/static/assets/js/lib.js"></script>
 		</body>
 		<script>
+				window.onload = () => {
+					var quills = document.getElementsByClassName("edit");
+					for (var i = 0; i < quills.length; i++) {
+						quills[i].setAttribute("id", `edit${i + 1}`);
+					}
+				}
+
 			// JESS THING -----------------------------------------------------------------------------------
 				var itemContainers = [].slice.call(document.querySelectorAll('.board-column-content'));
 				var columnGrids = [];
