@@ -770,47 +770,49 @@
 				<div class="container" style="width: 914px; padding: 32px;">
 					<!-- Pageholder -->
 					<div style="background-color: #E9EBFC; padding: 54px 54px; height: 1100px;" class="myshadow">
-						<!-- Grid holder -->
-						<h2 class="title is-dark is-semibold has-text-centered is-spaced edit">{{ocrtext.0.text}}</h2>
-						<!-- ************************************************************************************ -->
-						<!-- DEMO GOES HERE --------------------------------------------------------------------- -->
-						<!-- ************************************************************************************ -->
-						<div class="board">
-							{% for subtitle in ocrtext.0.body %}
-								<div class="board-column subtitle">
-									<div class="board-column-header">
-										<div class="edit">
-											<p>{{ subtitle.text }}</p>
-										</div>
-									</div>
-									{% for item in subtitle.body %}
-										{% if item.tag == 'olist' or item.tag == 'ulist' %}
-											{% for point in item.body %}
-												<div class="board-column-content">
-													<div class="board-item">
-														<div class="board-item-content">
-															<div class="edit">
-																<p>{{ point.text }}</p>
+						{% for title in ocrtext %}
+							<!-- Grid holder -->
+							<h2 class="title is-dark is-semibold has-text-centered is-spaced edit">{{ title.text }}</h2>
+							<!-- ************************************************************************************ -->
+							<!-- DEMO GOES HERE --------------------------------------------------------------------- -->
+							<!-- ************************************************************************************ -->
+							<div class="board">
+									{% for subtitle in title.body %}
+										<div class="board-column subtitle">
+											<div class="board-column-header">
+												<div class="edit">
+													<p>{{ subtitle.text }}</p>
+												</div>
+											</div>
+											{% for item in subtitle.body %}
+												{% if item.tag == 'olist' or item.tag == 'ulist' %}
+													{% for point in item.body %}
+														<div class="board-column-content">
+															<div class="board-item">
+																<div class="board-item-content">
+																	<div class="edit">
+																		<p>{{ point.text }}</p>
+																	</div>
+																</div>
+															</div>
+														</div>
+													{% endfor %}
+												{% else %}
+													<div class="board-column-content">
+														<div class="board-item">
+															<div class="board-item-content">
+																<div class="edit">
+																	<p>{{ item.text }}</p>
+																</div>
 															</div>
 														</div>
 													</div>
-												</div>
+												{% endif %}
 											{% endfor %}
-										{% else %}
-											<div class="board-column-content">
-												<div class="board-item">
-													<div class="board-item-content">
-														<div class="edit">
-															<p>{{ item.text }}</p>
-														</div>
-													</div>
-												</div>
-											</div>
-										{% endif %}
+										</div>
 									{% endfor %}
-								</div>
-							{% endfor %}
-						</div>
+							</div>
+						{% endfor %}
 						
 						<div class="grid-footer">
 							<button class="add-more-items btn btn-primary" onclick="addBox()"><i class="material-icons">&#xE145;</i>Add more items</button>

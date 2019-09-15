@@ -1,0 +1,15 @@
+# Physics
+## Newton's Laws
+1) Every object in a state of uniform motion tends to remain in that state of motion,
+2) Force equals to mass times acceleration.
+3) For every action, there is an equal and opposite reaction,
+=> F=ma
+(If the sum of F=0, v= constant)
+## Newtonian Gravitation
+* Particles attract other particles with a force directly proportional to the square of the distance between their centres and the product of their masses
+=> G=universal gravitational constant = 6.67x101-11
+=> F=(G m1m2) / (r^2)
+=> r = distance from the centre of the earth
+## Vectors
+have magnitude and direction
+- position vectors represent the position of P(x,y) in space in relation to an arbitrary reference point

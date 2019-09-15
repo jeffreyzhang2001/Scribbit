@@ -1,4 +1,4 @@
-import os, re
+import os, re, json
 from flask import *
 from ocr import ocr
 #from entity_seperation import seperate_entities
@@ -14,7 +14,7 @@ syntax = {
 	'##': 'subtitle',
 	'-': 'upoint',
 	')': 'opoint',
-	'*': 'def'
+	'*': 'def',
 }
 rsyntax = dict((b,a) for (a,b) in syntax.items())
 
@@ -38,13 +38,15 @@ def label(text):
 	global syntax, seps
 	labelled = []
 
-	titlesecs = re.split(r'^#\s', text)[1:]
+	joined = ' '.join(text.split('\n'))
+
+	titlesecs = re.split(r'(^|\s)#\s', text)[1:]
 
 	print(titlesecs)
 
 	for titlesec in titlesecs:
 		title = titlesec.split('\n')[0]
-		subtitlesecs = re.split(r'##\s', titlesec)[1:]
+		subtitlesecs = re.split(r'\s##\s', titlesec)[1:]
 
 		print(subtitlesecs)
 
@@ -75,7 +77,10 @@ def label(text):
 					if first.endswith(')'):
 						first = ')'
 
-					tag = syntax[first]
+					try:
+						tag = syntax[first]
+					except:
+						tag = 'other'
 
 					# list grouping
 					if tag == 'opoint':
@@ -132,7 +137,7 @@ def label(text):
 
 						temp3 = {
 							'text': ' '.join(splitted[1:]),
-							'tag': syntax[first]
+							'tag': tag
 						}
 						inOList = False
 						inUList = False
@@ -158,7 +163,19 @@ def display():
 	global UPLOAD_FOLDER, FILE_NAME, ocrtext
 	ocrtext = ocr(FILE_NAME)
 
-	info = label(ocrtext)
+	# f = open('test.txt', 'w+')
+	# f.write(ocrtext)
+	# f.close()
+
+	# TESTING ---------
+	h = open('test.txt', 'r')
+	notes = h.read()
+
+	# info = label(ocrtext)
+	info = label(notes)
+
+	with open('test.json', 'w+') as g:
+		json.dump(info, g)
 
 	return render_template('display.html', ocrtext = info)
 
