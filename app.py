@@ -65,19 +65,79 @@ def label(text):
 
 			items = subtitlesec.split('\n')[1:]
 
-			for item in items:
+			inOList = False
+			inUList = False
+
+			for item in items:			
 				if item != '':
 					splitted = item.split(' ')
 					first = splitted[0]
 					if first.endswith(')'):
-						first = first[-1]
+						first = ')'
 
-					temp3 = {
-						'text': ' '.join(splitted[1:]),
-						'tag': syntax[first],
-					}
+					tag = syntax[first]
 
-					temp2['body'].append(temp3)
+					# list grouping
+					if tag == 'opoint':
+						if inUList == True:
+							temp2['body'].append(temp3)
+							inUList = False
+
+						if inOList == False:
+							tagtype = 'olist'
+							
+							temp3 = {
+								'tag': tagtype,
+								'body': [{
+									'text': ' '.join(splitted[1:]),
+									'tag': tag
+								}]
+							}
+							inOList = True
+						else:
+							temp4 = {
+								'text': ' '.join(splitted[1:]),
+								'tag': tag
+							}
+							temp3['body'].append(temp4)
+					elif tag == 'upoint':
+						if inOList == True:
+							temp2['body'].append(temp3)
+							inOList = False
+
+						if inUList == False:
+							tagtype = 'ulist'
+
+							temp3 = {
+								'tag': tagtype,
+								'body': [{
+									'text': ' '.join(splitted[1:]),
+									'tag': tag
+								}]
+							}
+							inUList = True
+						else:
+							temp4 = {
+								'text': ' '.join(splitted[1:]),
+								'tag': tag
+							}
+							temp3['body'].append(temp4)
+					else:
+						if inUList == True:
+							temp2['body'].append(temp3)
+							inUList = False
+						elif inOList == True:
+							temp2['body'].append(temp3)
+							inOList = False
+
+						temp3 = {
+							'text': ' '.join(splitted[1:]),
+							'tag': syntax[first]
+						}
+						inOList = False
+						inUList = False
+					
+						temp2['body'].append(temp3)
 
 			temp['body'].append(temp2)
 
@@ -100,7 +160,7 @@ def display():
 
 	info = label(ocrtext)
 
-	return render_template('display.html')#, ocrtext = ocrtext)
+	return render_template('display.html', ocrtext = ocrtext)
 
 @app.route('/about')
 def about():
