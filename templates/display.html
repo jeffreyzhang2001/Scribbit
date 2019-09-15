@@ -1228,7 +1228,9 @@
     function generateElements(amount) {
       var ret = [];
 
-      for (var i = 0, len = amount || 1; i < amount; i++) {
+      {% for title in ocrtext %}
+        {% for subtitle in title.body %}
+            {% for item in subtitle.body %}
 
         var id = ++uuid;
         var color = getRandomItem(filterOptions);
@@ -1241,7 +1243,7 @@
           '<div class="item-content">' +
           '<div class="card">' +
           '<div class="card-id">' + id + '</div>' +
-          '<div class="card-title">' + "{{ ocrtext.0.body.0.body.0.text }}" + '</div>' +
+          '<div class="card-title">' + "{{ item.text }}" + '</div>' +
           '<div class="card-remove"><i class="material-icons">&#xE5CD;</i></div>' +
           '</div>' +
           '</div>' +
@@ -1250,7 +1252,9 @@
         itemElem.innerHTML = itemTemplate;
         ret.push(itemElem.firstChild);
 
-      }
+          {% endfor %}
+        {% endfor %}
+      {% endfor %}
 
       return ret;
 
