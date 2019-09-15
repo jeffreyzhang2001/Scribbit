@@ -24,11 +24,12 @@
   <link rel="stylesheet" href="/static/assets/js/aos/aos.css">
   <!-- All Muuri styling contained inline: -->
   <style>
-    .myshadow{
-      -moz-box-shadow:    0px 0px 5px 6px rgba(204, 204, 204, 0);
-  -webkit-box-shadow: 0px 0px 5px 6px rgba(204, 204, 204, 0);
-  box-shadow:         0px 0px 5px 6px rgba(0, 0, 0, 0.158);
+    .myshadow {
+      -moz-box-shadow: 0px 0px 5px 6px rgba(204, 204, 204, 0);
+      -webkit-box-shadow: 0px 0px 5px 6px rgba(204, 204, 204, 0);
+      box-shadow: 0px 0px 5px 6px rgba(0, 0, 0, 0.158);
     }
+
     .controls {
       margin: 30px -10px;
     }
@@ -547,13 +548,14 @@
     /* Footer */
 
     footer {
-/*       margin: 0 auto;
+      /*       margin: 0 auto;
       max-width: 940px;
       text-align: center;
       border-top: 2px solid #e5e5e5; */
       padding-top: 30px;
-/*       padding-bottom: 30px;
- */    }
+      /*       padding-bottom: 30px;
+ */
+    }
 
     footer p {
       margin: 0;
@@ -835,8 +837,8 @@
                 <i class="material-icons">&#xE313;</i>
               </div>
               <select class="control-field layout-field form-control">
-                  <option value="left-top-fillgaps" selected>Left Top (fill gaps)</option>
-                <option value="left-top" >Left Top</option>
+                <option value="left-top-fillgaps" selected>Left Top (fill gaps)</option>
+                <option value="left-top">Left Top</option>
                 <option value="right-top">Right Top</option>
                 <option value="right-top-fillgaps">Right Top (fill gaps)</option>
                 <option value="left-bottom">Left Bottom</option>
@@ -965,6 +967,7 @@
       }
     })();
   </script> -->
+<script type="text/javascript" src="/test.json"></script>
 <script>document.addEventListener('DOMContentLoaded', function () {
 
     //
@@ -989,11 +992,20 @@
     var sortFieldValue;
     var layoutFieldValue;
     var searchFieldValue;
+    var content_data = "test";
 
     //
     // Grid helper functions
     //
 
+    // Init function() --> 
+    // read in .json file
+    // Generate titles
+    // Call handler function
+
+    // Hander function() --> 
+    // Generate subtitles/content (write this function)
+    // Generate .... everything else
     function initDemo() {
 
       initGrid();
@@ -1038,11 +1050,10 @@
 
       var dragCounter = 0;
 
-      // read in .json file
-      // 
 
       grid = new Muuri(gridElement, {
-        items: generateElements(18),
+        // generate title(s) function --> edit the function
+        items:  generateElements(18),// generateScribElements(content_data),
         layoutDuration: 400,
         layoutEasing: 'ease',
         dragEnabled: true,
@@ -1067,6 +1078,47 @@
         })
         .on('move', updateIndices)
         .on('sort', updateIndices);
+
+    }
+    function getTexts(num, directory) {
+      var text_list = [];
+      var i;
+      for (i = 0; i < num; i++) {
+        text_list.push(directory[i]["text"]);
+      }
+      return text_list;
+    }
+
+    function generateSribElements(content_data) {
+      var title_length = content_data.length;
+      var title_texts = [getTexts(title_length, content_data)];
+      var ret = [];
+
+      for (var i = 0, len = amount || 1; i < amount; i++) {
+
+        var id = ++uuid;
+        var color = getRandomItem(filterOptions);
+        var title = text;
+        var width = 2;// Math.floor(Math.random() * 2) + 1;
+        var height = 2;// Math.floor(Math.random() * 2) + 1;
+        var itemElem = document.createElement('div');
+        var itemTemplate = '' +
+          '<div class="item h' + height + ' w' + width + ' ' + color + '" data-id="' + id + '" data-color="' + color + '" data-title="' + title + '">' +
+          '<div class="item-content">' +
+          '<div class="card">' +
+          '<div class="card-id">' + id + '</div>' +
+          '<div class="card-title">' + title + '</div>' +
+          '<div class="card-remove"><i class="material-icons">&#xE5CD;</i></div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+
+        itemElem.innerHTML = itemTemplate;
+        ret.push(itemElem.firstChild);
+
+      }
+
+      return ret;
 
     }
 
@@ -1108,7 +1160,7 @@
       sortFieldValue = currentSort;
 
     }
-// key -->
+    // key -->
     function addItems() {
 
       // Generate new elements.
@@ -1172,9 +1224,8 @@
     //
     // Generic helper functions
     //
-// key -->
+    // key -->
     function generateElements(amount) {
-
       var ret = [];
 
       for (var i = 0, len = amount || 1; i < amount; i++) {
@@ -1190,7 +1241,7 @@
           '<div class="item-content">' +
           '<div class="card">' +
           '<div class="card-id">' + id + '</div>' +
-          '<div class="card-title">' + title + '</div>' +
+          '<div class="card-title">' + "{{ ocrtext.0.body.0.body.0.text }}" + '</div>' +
           '<div class="card-remove"><i class="material-icons">&#xE5CD;</i></div>' +
           '</div>' +
           '</div>' +
@@ -1204,6 +1255,8 @@
       return ret;
 
     }
+
+
 
     function getRandomItem(collection) {
 
