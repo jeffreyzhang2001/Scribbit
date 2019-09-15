@@ -789,7 +789,7 @@
       <!-- Pageholder -->
       <div style="background-color: #E9EBFC; padding: 54px 54px; height: 1100px;" class="myshadow">
         <!-- Grid holder -->
-        <h2 class="title is-dark is-semibold has-text-centered is-spaced">Title Here</h2>
+        <h2 class="title is-dark is-semibold has-text-centered is-spaced">{{ocrtext.0.text}}</h2>
 
         <!-- DEMO GOES HERE -->
 
@@ -967,7 +967,6 @@
       }
     })();
   </script> -->
-<script type="text/javascript" src="/test.json"></script>
 <script>document.addEventListener('DOMContentLoaded', function () {
 
     //
@@ -1225,6 +1224,8 @@
     // Generic helper functions
     //
     // key -->
+
+
     function generateElements(amount) {
       var ret = [];
 
@@ -1243,7 +1244,7 @@
           '<div class="item-content">' +
           '<div class="card">' +
           '<div class="card-id">' + id + '</div>' +
-          '<div class="card-title" style="font-size: 10px;">' + "asda dfs sdfds fds fsdf dsf sdfdsf dsf dsf sdf sdf dsf sdf dsf sdf sdf s df sdf sdf sdfs df sd" + '</div>' +
+          '<div class="card-title" style="font-size: 10px;">' + "{{point.text}}" + '</div>' +
           '<div class="card-remove"><i class="material-icons">&#xE5CD;</i></div>' +
           '</div>' +
           '</div>' +
@@ -1260,7 +1261,6 @@
       return ret;
 
     }
-
 
 
     function getRandomItem(collection) {

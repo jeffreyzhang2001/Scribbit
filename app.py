@@ -160,7 +160,7 @@ def display():
 
 	info = label(ocrtext)
 
-	return render_template('display.html', ocrtext = info)
+	return render_template('display.html', ocrtext = info, i = 0)
 
 @app.route('/about')
 def about():
