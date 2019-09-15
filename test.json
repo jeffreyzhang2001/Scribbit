@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-[{"text": "Title", "tag": "title", "body": [{"text": "Subtitle", "tag": "subtitle", "body": [{"tag": "olist", "body": [{"text": "List one", "tag": "opoint"}, {"text": "List two", "tag": "opoint"}, {"text": "List three", "tag": "opoint"}]}, {"tag": "ulist", "body": [{"text": "List point one", "tag": "upoint"}, {"text": "list point two", "tag": "upoint"}]}, {"text": "Definition", "tag": "def"}]}]}]
-=======
 [
     {
         "text": "Title",
@@ -11,24 +8,34 @@
                 "tag": "subtitle",
                 "body": [
                     {
-                        "text": "List one",
-                        "tag": "opoint"
+                        "tag": "olist",
+                        "body": [
+                            {
+                                "text": "List one",
+                                "tag": "opoint"
+                            },
+                            {
+                                "text": "List two",
+                                "tag": "opoint"
+                            },
+                            {
+                                "text": "List three",
+                                "tag": "opoint"
+                            }
+                        ]
                     },
                     {
-                        "text": "List two",
-                        "tag": "opoint"
-                    },
-                    {
-                        "text": "List three",
-                        "tag": "opoint"
-                    },
-                    {
-                        "text": "List point one",
-                        "tag": "upoint"
-                    },
-                    {
-                        "text": "list point two",
-                        "tag": "upoint"
+                        "tag": "ulist",
+                        "body": [
+                            {
+                                "text": "List point one",
+                                "tag": "upoint"
+                            },
+                            {
+                                "text": "list point two",
+                                "tag": "upoint"
+                            }
+                        ]
                     },
                     {
                         "text": "Definition",
@@ -39,4 +46,3 @@
         ]
     }
 ]
->>>>>>> 012e750a802aa5a4b21e3a7789f21f59236d28a7
