@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block content %}
+<html>
+
+<head>
+  <title>Scribbit'd Notes</title>
+
+  <link rel="icon" type="image/png" href="/static/assets/images/favicon.png" />
+  <!-- <link rel="icon" href="img/favicon.ico"> -->
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+
+  <!--Core CSS -->
+  <link rel="stylesheet" href="/static/assets/css/bulma.css">
+  <link rel="stylesheet" href="/static/assets/css/core.css">
+  <!--Libraries-->
+  <link rel="stylesheet" href="/static/assets/fonts/cryptofont/css/cryptofont.min.css">
+  <link rel="stylesheet" href="/static/assets/js/aos/aos.css">
+  <!-- All Muuri styling contained inline: -->
+  <style>
+    .myshadow {
+      -moz-box-shadow: 0px 0px 5px 6px rgba(204, 204, 204, 0);
+      -webkit-box-shadow: 0px 0px 5px 6px rgba(204, 204, 204, 0);
+      box-shadow: 0px 0px 5px 6px rgba(0, 0, 0, 0.158);
+    }
+
+    .controls {
+      margin: 30px -10px;
+    }
+
+    .control {
+      position: relative;
+      float: left;
+      width: 25%;
+      padding: 0 10px;
+    }
+
+    @media (max-width: 600px) {
+      .control {
+        float: none;
+        width: auto;
+        margin: 0 0 15px 0;
+      }
+
+      .control.layout {
+        margin: 0;
+      }
+    }
+
+    .control-icon {
+      position: absolute;
+      left: 10px;
+      top: 0;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .control-field {
+      position: relative;
+      padding-left: 40px;
+      z-index: 1;
+    }
+
+    /* Grid */
+
+    .grid {
+      position: relative;
+      max-width: 960px;
+      margin: 0 -10px;
+      -moz-box-sizing: content-box;
+      -webkit-box-sizing: content-box;
+      box-sizing: content-box;
+    }
+
+    .item {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      line-height: 100px;
+      margin: 10px;
+      z-index: 1;
+      will-change: transform;
+    }
+
+    .item.muuri-item-positioning {
+      z-index: 2;
+    }
+
+    .item.muuri-item-dragging,
+    .item.muuri-item-releasing {
+      z-index: 9999;
+    }
+
+    .item.muuri-item-dragging {
+      cursor: move;
+    }
+
+    .item.muuri-item-hidden {
+      z-index: 0;
+    }
+
+    .item.h2 {
+      height: 220px;
+      line-height: 220px;
+    }
+
+    .item.w2 {
+      width: 220px;
+    }
+
+    .item-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .card {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 300;
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 2px solid;
+      color: #333;
+      border-radius: 4px;
+      -webkit-transition: all 0.2s ease-out;
+      -moz-transition: all 0.2s ease-out;
+      -ms-transition: all 0.2s ease-out;
+      -o-transition: all 0.2s ease-out;
+      transition: all 0.2s ease-out;
+    }
+
+    .item.red .card {
+      color: #f94a7a;
+    }
+
+    .item.green .card {
+      color: #2ac06d;
+    }
+
+    .item.blue .card {
+      color: #4A9FF9;
+    }
+
+    .card-id {
+      position: absolute;
+      left: 7px;
+      top: 0;
+      height: 30px;
+      line-height: 30px;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .card-remove {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 400;
+      cursor: pointer;
+      -moz-transform: scale(0);
+      -webkit-transform: scale(0);
+      -o-transform: scale(0);
+      -ms-transform: scale(0);
+      transform: scale(0);
+      -webkit-transition: all 0.15s ease-out;
+      -moz-transition: all 0.15s ease-out;
+      -ms-transition: all 0.15s ease-out;
+      -o-transition: all 0.15s ease-out;
+      transition: all 0.15s ease-out;
+    }
+
+    .card:hover>.card-remove {
+      -moz-transform: scale(1);
+      -webkit-transform: scale(1);
+      -o-transform: scale(1);
+      -ms-transform: scale(1);
+      transform: scale(1);
+    }
+
+    /* Grid Footer */
+
+    .grid-footer {
+      margin: 60px 0;
+      text-align: center;
+    }
+
+    .grid-footer .btn .material-icons {
+      margin-right: 10px;
+      font-size: 24px;
+    }
+
+
+
+    /* Icons in the selector */
+    /* fallback */
+    @font-face {
+      font-family: 'Material Icons';
+      font-style: normal;
+      font-weight: 400;
+      src: url(https://fonts.gstatic.com/s/materialicons/v29/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+    }
+
+    .material-icons {
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+
+
+
+    /* main.css */
+    /* Base */
+
+    * {
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    html {
+      overflow-y: scroll;
+      overflow-x: hidden;
+      background: #fff;
+    }
+
+    html.dragging body {
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    body {
+      position: relative;
+      font-family: 'Fira Sans', Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.5;
+      color: #6e6e6e;
+    }
+
+    a {
+      color: #3396FF;
+      text-decoration: none;
+      -webkit-transition: all 0.2s ease-out;
+      -moz-transition: all 0.2s ease-out;
+      -ms-transition: all 0.2s ease-out;
+      -o-transition: all 0.2s ease-out;
+      transition: all 0.2s ease-out;
+    }
+
+    a:hover {
+      color: #FF4BD8;
+    }
+
+    /* Clearfix */
+
+    .cf:before,
+    .cf:after {
+      content: " ";
+      display: table;
+    }
+
+    .cf:after {
+      clear: both;
+    }
+
+    /* Material icons */
+
+    .material-icons {
+      display: inline-block;
+      vertical-align: top;
+      line-height: inherit;
+      font-size: inherit;
+    }
+
+    /* Buttons */
+
+    .btn {
+      display: inline-block;
+      position: relative;
+      vertical-align: top;
+      margin: 0;
+      border: 0;
+      outline: 0;
+      padding: 0px 15px;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 40px;
+      height: 40px;
+      text-align: center;
+      white-space: nowrap;
+      background: #4a9ff9;
+      color: #fff;
+      -ms-touch-action: manipulation;
+      touch-action: manipulation;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      border-radius: 3px;
+    }
+
+    .btn:focus,
+    .btn:hover,
+    .btn:active {
+      outline: 0;
+    }
+
+    .btn:hover {
+      background: #3989de;
+    }
+
+    .btn:active {
+      background: #3075bf;
+    }
+
+    .btn.active {
+      background: #60ca47;
+    }
+
+    .btn.active:hover {
+      background: #40b325;
+    }
+
+    .btn.active:active {
+      background: #309818;
+    }
+
+    /* Forms */
+
+    .form-control {
+      display: block;
+      width: 100%;
+      height: 40px;
+      padding: 5px 15px;
+      font-size: 16px;
+      line-height: 26px;
+      color: inherit;
+      background: #fff;
+      border: 2px solid #e5e5e5;
+      border-radius: 4px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -o-appearance: none;
+      appearance: none;
+    }
+
+    select.form-control {
+      padding-right: 40px;
+      cursor: pointer;
+    }
+
+    select.form-control::-ms-expand {
+      display: none;
+    }
+
+    .select-arrow {
+      position: absolute;
+      right: 10px;
+      top: 0;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .form-control:focus {
+      outline: 0;
+      border-color: #4a9ff9;
+    }
+
+    /* Header */
+
+    header {
+      margin: 30px auto;
+      max-width: 940px;
+    }
+
+    header .logo {
+      max-width: 240px;
+      margin: 60px auto 60px auto;
+    }
+
+    header .logo svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    header h1 {
+      display: none;
+    }
+
+    header h2 {
+      text-align: center;
+      font-size: 24px;
+      line-height: 1.5;
+      font-weight: 400;
+      max-width: 940px;
+      margin: 0 auto;
+      color: #6e6e6e;
+    }
+
+    header h2>span {
+      display: block;
+      font-size: 18px;
+      color: #aaa;
+      margin-top: 3px;
+    }
+
+    header h2>span>i {
+      margin: 0 10px;
+      color: #ccc;
+    }
+
+    header aside {
+      color: #bbb;
+      font-size: 15px;
+      margin-top: 5px;
+      font-style: italic;
+      text-align: center;
+    }
+
+    header nav {
+      text-align: center;
+    }
+
+    header nav a {
+      position: relative;
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      padding: 20px;
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    header nav a i {
+      display: block;
+      position: absolute;
+      height: 2px;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background-color: #FF4BD8;
+      opacity: 0;
+      z-index: 2;
+      -moz-transform: scale(0, 1);
+      -webkit-transform: scale(0, 1);
+      -o-transform: scale(0, 1);
+      -ms-transform: scale(0, 1);
+      transform: scale(0, 1);
+      -webkit-transition: -webkit-transform 0.2s ease-out, opacity 0s ease 0.2s;
+      -moz-transition: -moz-transform 0.2s ease-out, opacity 0s ease 0.2s;
+      -ms-transition: -ms-transform 0.2s ease-out, opacity 0s ease 0.2s;
+      -o-transition: -o-transform 0.2s ease-out, opacity 0s ease 0.2s;
+      transition: transform 0.2s ease-out, opacity 0s ease 0.2s;
+    }
+
+    header nav a:hover i {
+      opacity: 1;
+      -moz-transform: scale(1, 1);
+      -webkit-transform: scale(1, 1);
+      -o-transform: scale(1, 1);
+      -ms-transform: scale(1, 1);
+      transform: scale(1, 1);
+      -webkit-transition: -webkit-transform 0.2s ease-out, opacity 0s ease 0s;
+      -moz-transition: -moz-transform 0.2s ease-out, opacity 0s ease 0s;
+      -ms-transition: -ms-transform 0.2s ease-out, opacity 0s ease 0s;
+      -o-transition: -o-transform 0.2s ease-out, opacity 0s ease 0s;
+      transition: transform 0.2s ease-out, opacity 0s ease 0s;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        margin-bottom: 0;
+      }
+
+      header h2 {
+        font-size: 21px;
+      }
+
+      header h2>span {
+        margin-top: 20px;
+      }
+
+      header h2>span>i {
+        display: none;
+      }
+
+      header h2>span>span {
+        display: block;
+      }
+
+      header nav {
+        margin-top: 20px;
+        border-bottom: 0;
+        border-top: 1px solid #e5e5e5;
+      }
+
+      header nav a {
+        display: block;
+        vertical-align: top;
+        padding: 10px 20px;
+        border-bottom: 1px solid #e5e5e5;
+      }
+
+      header nav a i {
+        bottom: -1px;
+        left: 0;
+        right: 0;
+      }
+    }
+
+    /* Footer */
+
+    footer {
+      /*       margin: 0 auto;
+      max-width: 940px;
+      text-align: center;
+      border-top: 2px solid #e5e5e5; */
+      padding-top: 30px;
+      /*       padding-bottom: 30px;
+ */
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    footer .credits {
+      color: #aaa;
+      margin-bottom: 5px;
+      font-style: italic;
+    }
+
+    footer .copyright i {
+      font-size: 24px;
+      height: 27px;
+      line-height: 32px;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    /* Sections */
+
+    section {
+      max-width: 940px;
+    }
+
+    section.demo {
+      margin-top: 30px;
+    }
+
+    section h4 {
+      margin: 30px 0 15px 0;
+      font-weight: 500;
+      font-size: 20px;
+      color: #3e3e3e;
+    }
+
+    @media (max-width: 600px) {
+      section.demo {
+        border-top: 0;
+      }
+    }
+
+    /* Section titles */
+
+    .section-title {
+      color: #3e3e3e;
+      font-size: 26px;
+      font-weight: 700;
+      margin: 40px 0;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .section-title>span {
+      position: relative;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .section-title>span:after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 10px;
+      bottom: 0;
+      right: 10px;
+      height: 2px;
+      background: #3e3e3e;
+    }
+
+    /* Feature list */
+
+    .feature-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .feature-list-item {
+      position: relative;
+      padding-left: 80px;
+      margin: 30px 0;
+      overflow: hidden;
+    }
+
+    .feature-list-icon {
+      display: block;
+      float: left;
+      margin-left: -80px;
+      width: 80px;
+      font-size: 48px;
+      line-height: 48px;
+      text-align: left;
+      color: #3396FF;
+    }
+
+    .feature-list-text h4 {
+      margin: 0 0 15px 0;
+      font-weight: 500;
+      font-size: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .feature-list-item {
+        padding-left: 0;
+      }
+
+      .feature-list-icon {
+        margin: -4px 10px 0 0;
+        width: 24px;
+        font-size: 24px;
+        line-height: inherit;
+      }
+    }
+
+    /* Author */
+
+    .author {
+      margin: 60px 0;
+      font-weight: 500;
+      font-size: 20px;
+      color: #3e3e3e;
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* 由 demo-grid.css 取出再覆蓋執行一次 */
+    .control-field {
+      position: relative;
+      padding-left: 40px;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="pageloader is-theme"></div>
+  <div class="infraloader is-active"></div>
+  <div class="dark-wrapper">
+    <section class="hero is-transparent" style="margin:auto;">
+      <div class="hero-head">
+
+        <!-- Cloned navbar -->
+        <!-- Cloned navbar that comes in on scroll-->
+        <nav id="navbar-clone" class="navbar is-fixed is-dark">
+          <div class="container">
+            <!-- Brand -->
+            <div class="navbar-brand">
+              <a href="/" class="navbar-item">
+                <img src="/static/assets/images/logo.png" alt="">
+              </a>
+              <!-- Responsive toggle -->
+              <span class="navbar-burger burger" data-target="navbarMenu">
+                <span></span>
+                <span></span>s
+                <span></span>
+              </span>
+            </div>
+            <!-- Menu -->
+            <div id="navbarMenu" class="navbar-menu light-menu">
+              <div class="navbar-end">
+                <!-- Menu item
+                <div class="navbar-item is-nav-link">
+                  <a class="is-centered-responsive" href="#" target="_blank">
+                    <img class="telegram" src="assets/images/logo/telegram.svg" alt="">
+                    How to 
+                  </a>
+                </div>
+                 -->
+                <!-- About us -->
+                <div class="navbar-item">
+                  <a href="/about" class="button k-button k-primary raised has-gradient slanted">
+                    <span class="text">About Us</span>
+                    <span class="front-gradient"></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <!-- /Cloned navbar -->
+        <!-- Static navbar -->
+        <!-- Static navbar -->
+        <nav class="navbar is-light">
+          <div class="container">
+            <!-- Brand -->
+            <div class="navbar-brand">
+              <a href="/" class="navbar-item">
+                <img src="/static/assets/images/logo.png" alt="" height="200px" width="150px">
+              </a>
+              <!-- Responsive toggle -->
+              <span class="navbar-burger burger" data-target="navbarMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </div>
+            <!-- Menu -->
+            <div id="navbarMenu" class="navbar-menu light-menu">
+              <div class="navbar-end">
+                <!-- Menu item
+                <div class="navbar-item is-nav-link">
+                  <a class="is-centered-responsive" href="#" target="_blank">
+                    <img class="telegram" src="assets/images/logo/telegram.svg" alt="">
+                    How to 
+                  </a>
+                </div>
+                 -->
+                <!-- About us -->
+                <div class="navbar-item">
+                  <a href="/about" class="button k-button k-primary raised has-gradient slanted">
+                    <span class="text">About Us</span>
+                    <span class="front-gradient"></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <!-- /Static navbar -->
+      </div>
+    </section>
+
+    <div class="container" style="width: 914px; padding: 32px;">
+      <!-- Pageholder -->
+      <div style="background-color: #E9EBFC; padding: 54px 54px; height: 1100px;" class="myshadow">
+        <!-- Grid holder -->
+        <h2 class="title is-dark is-semibold has-text-centered is-spaced">{{ocrtext.0.text}}</h2>
+
+        <!-- DEMO GOES HERE -->
+
+        <section class="grid-demo">
+          <div class="controls cf" style="display: none;">
+            <div class="control search">
+              <div class="control-icon">
+                <i class="material-icons">&#xE8B6;</i>
+              </div>
+              <input class="control-field search-field form-control " type="text" name="search"
+                placeholder="Search..." />
+            </div>
+            <div class="control filter">
+              <div class="control-icon">
+                <i class="material-icons">&#xE152;</i>
+              </div>
+              <div class="select-arrow">
+                <i class="material-icons">&#xE313;</i>
+              </div>
+              <select class="control-field filter-field form-control">
+                <option value="" selected>All</option>
+                <option value="red">Red</option>
+                <option value="blue">Blue</option>
+                <option value="green">Green</option>
+              </select>
+            </div>
+            <div class="control sort">
+              <div class="control-icon">
+                <i class="material-icons">&#xE164;</i>
+              </div>
+              <div class="select-arrow">
+                <i class="material-icons">&#xE313;</i>
+              </div>
+              <select class="control-field sort-field form-control">
+                <option value="order" selected>Drag</option>
+                <option value="title">Title (drag disabled)</option>
+                <option value="color">Color (drag disabled)</option>
+              </select>
+            </div>
+            <div class="control layout">
+              <div class="control-icon">
+                <i class="material-icons">&#xE871;</i>
+              </div>
+              <div class="select-arrow">
+                <i class="material-icons">&#xE313;</i>
+              </div>
+              <select class="control-field layout-field form-control">
+                <option value="left-top-fillgaps" selected>Left Top (fill gaps)</option>
+                <option value="left-top">Left Top</option>
+                <option value="right-top">Right Top</option>
+                <option value="right-top-fillgaps">Right Top (fill gaps)</option>
+                <option value="left-bottom">Left Bottom</option>
+                <option value="left-bottom-fillgaps">Left Bottom (fill gaps)</option>
+                <option value="right-bottom">Right Bottom</option>
+                <option value="right-bottom-fillgaps">Right Bottom (fill gaps)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid"></div>
+
+          <div class="grid-footer">
+            <button class="add-more-items btn btn-primary"><i class="material-icons">&#xE145;</i>Add more items</button>
+          </div>
+
+        </section>
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="krypton-footer">
+    <div class="container" style="">
+      <!-- Logo -->
+      <div class="footer-logo">
+        <a href="#">
+          <img src="/static/assets/images/logo.png" alt="">
+          <div class="brand-subtitle">Helping your notes take off</div>
+        </a>
+      </div>
+      <br>
+      <p class="k-copyright">© 2019 | Scribbit. All Rights Reserved</p>
+      <br>
+    </div>
+  </footer>
+
+  <script src="/static/assets/js/app.js"></script>
+  <!--script src="assets/js/particlesjs/particles.min.js"></script-->
+  <script src="/static/assets/js/aos/aos.js"></script>
+  <script src="/static/assets/js/main.js" defer="defer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.3.1/web-animations.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+  <script src="https://unpkg.com/muuri@0.6.3/dist/muuri.min.js"></script>
+  <script src="/static/assets/js/lib.js"></script>
+</body>
+
+<!-- <script>
+    (function() {
+      var counter = 0;
+      // Init grids
+      var grid1 = new Muuri('.grid-1', {
+        items: '.item',
+        dragEnabled: true,
+        dragContainer: document.body,
+        dragSort: function() {
+          return [grid1, grid2];
+        }
+      });
+      var grid2 = new Muuri('.grid-2', {
+        items: '.item',
+        dragEnabled: true,
+        dragContainer: document.body,
+        dragSort: function() {
+          return [grid1, grid2];
+        }
+      });
+      // Init actions
+      var grid1AddButton = document.querySelector('.grid-1 .add');
+      var grid1RemoveButton = document.querySelector('.grid-1 .remove');
+      var grid2AddButton = document.querySelector('.grid-2 .add');
+      var grid2RemoveButton = document.querySelector('.grid-2 .remove');
+      grid1AddButton.addEventListener('click', function() {
+        addItemsToGrid(grid1, 5);
+      });
+      grid1RemoveButton.addEventListener('click', function() {
+        removeItemsFromGrid(grid1, 5);
+      });
+      grid2AddButton.addEventListener('click', function() {
+        addItemsToGrid(grid2, 5);
+      });
+      grid2RemoveButton.addEventListener('click', function() {
+        removeItemsFromGrid(grid2, 5);
+      });
+      // Utils
+      function createItemElement(id, title, width, height) {
+        var el = document.createElement('div');
+        var classNames = 'item h' + height + ' w' + width;
+        // prettier-ignore
+        el.innerHTML = '<div class="' + classNames + '" data-id="' + id + '">' +
+                         '<div class="item-content">' + title + '</div>' +
+                       '</div>';
+        return el.firstChild;
+      }
+      function createItemElements(amount) {
+        var ret = [];
+        for (var i = 0; i < amount; i++) {
+          var id = ++counter;
+          var title = id;
+          var width = getRandomInt(1, 2);
+          var height = getRandomInt(1, 2);
+          ret.push(createItemElement(id, title, height, width));
+        }
+        return ret;
+      }
+      // https://stackoverflow.com/a/7228322
+      function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      }
+      function addItemsToGrid(grid, amount) {
+        var elements = createItemElements(amount);
+        elements.forEach(function(el) {
+          el.style.display = 'none';
+        });
+        grid.add(elements);
+        grid.show(elements);
+      }
+      function removeItemsFromGrid(grid, amount) {
+        var items = grid.getItems();
+        items.length = amount;
+        grid.hide(items, {
+          onFinish: function(hiddenItems) {
+            grid.remove(hiddenItems, { removeElements: true });
+          }
+        });
+      }
+    })();
+  </script> -->
+<script>document.addEventListener('DOMContentLoaded', function () {
+
+    //
+    // Initialize stuff
+    // 初始化物件，宣告一堆變數。
+    //
+
+    var grid = null;
+    var docElem = document.documentElement;
+    var demo = document.querySelector('.grid-demo');
+    var gridElement = demo.querySelector('.grid');
+    var filterField = demo.querySelector('.filter-field');
+    var searchField = demo.querySelector('.search-field');
+    var sortField = demo.querySelector('.sort-field');
+    var layoutField = demo.querySelector('.layout-field');
+    var addItemsElement = demo.querySelector('.add-more-items');
+    var characters = 'abcdefghijklmnopqrstuvwxyz';
+    var filterOptions = ['red', 'blue', 'green'];
+    var dragOrder = [];
+    var uuid = 0;
+    var filterFieldValue;
+    var sortFieldValue;
+    var layoutFieldValue;
+    var searchFieldValue;
+    var content_data = "test";
+
+    //
+    // Grid helper functions
+    //
+
+    // Init function() --> 
+    // read in .json file
+    // Generate titles
+    // Call handler function
+
+    // Hander function() --> 
+    // Generate subtitles/content (write this function)
+    // Generate .... everything else
+    function initDemo() {
+
+      initGrid();
+
+      // Reset field values.
+      searchField.value = '';
+      [sortField, filterField, layoutField].forEach(function (field) {
+        field.value = field.querySelectorAll('option')[0].value;
+      });
+
+      // Set inital search query, active filter, active sort value and active layout.
+      searchFieldValue = searchField.value.toLowerCase();
+      filterFieldValue = filterField.value;
+      sortFieldValue = sortField.value;
+      layoutFieldValue = layoutField.value;
+
+      // Search field binding.
+      searchField.addEventListener('keyup', function () {
+        var newSearch = searchField.value.toLowerCase();
+        if (searchFieldValue !== newSearch) {
+          searchFieldValue = newSearch;
+          filter();
+        }
+      });
+
+      // Filter, sort and layout bindings.
+      filterField.addEventListener('change', filter);
+      sortField.addEventListener('change', sort);
+      layoutField.addEventListener('change', changeLayout);
+
+      // Add/remove items bindings.
+      addItemsElement.addEventListener('click', addItems);
+      gridElement.addEventListener('click', function (e) {
+        if (elementMatches(e.target, '.card-remove, .card-remove i')) {
+          removeItem(e);
+        }
+      });
+
+    }
+
+    function initGrid() {
+
+      var dragCounter = 0;
+
+
+      grid = new Muuri(gridElement, {
+        // generate title(s) function --> edit the function
+        items:  generateElements(18),// generateScribElements(content_data),
+        layoutDuration: 400,
+        layoutEasing: 'ease',
+        dragEnabled: true,
+        dragSortInterval: 50,
+        dragContainer: document.body,
+        dragStartPredicate: function (item, event) {
+          var isDraggable = sortFieldValue === 'order';
+          var isRemoveAction = elementMatches(event.target, '.card-remove, .card-remove i');
+          return isDraggable && !isRemoveAction ? Muuri.ItemDrag.defaultStartPredicate(item, event) : false;
+        },
+        dragReleaseDuration: 400,
+        dragReleseEasing: 'ease'
+      })
+        .on('dragStart', function () {
+          ++dragCounter;
+          docElem.classList.add('dragging');
+        })
+        .on('dragEnd', function () {
+          if (--dragCounter < 1) {
+            docElem.classList.remove('dragging');
+          }
+        })
+        .on('move', updateIndices)
+        .on('sort', updateIndices);
+
+    }
+    function getTexts(num, directory) {
+      var text_list = [];
+      var i;
+      for (i = 0; i < num; i++) {
+        text_list.push(directory[i]["text"]);
+      }
+      return text_list;
+    }
+
+    function generateSribElements(content_data) {
+      var title_length = content_data.length;
+      var title_texts = [getTexts(title_length, content_data)];
+      var ret = [];
+
+      for (var i = 0, len = amount || 1; i < amount; i++) {
+
+        var id = ++uuid;
+        var color = getRandomItem(filterOptions);
+        var title = text;
+        var width = 2;// Math.floor(Math.random() * 2) + 1;
+        var height = 2;// Math.floor(Math.random() * 2) + 1;
+        var itemElem = document.createElement('div');
+        var itemTemplate = '' +
+          '<div class="item h' + height + ' w' + width + ' ' + color + '" data-id="' + id + '" data-color="' + color + '" data-title="' + title + '">' +
+          '<div class="item-content">' +
+          '<div class="card">' +
+          '<div class="card-id">' + id + '</div>' +
+          '<div class="card-title">' + title + '</div>' +
+          '<div class="card-remove"><i class="material-icons">&#xE5CD;</i></div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+
+        itemElem.innerHTML = itemTemplate;
+        ret.push(itemElem.firstChild);
+
+      }
+
+      return ret;
+
+    }
+
+    function filter() {
+
+      filterFieldValue = filterField.value;
+      grid.filter(function (item) {
+        var element = item.getElement();
+        var isSearchMatch = !searchFieldValue ? true : (element.getAttribute('data-title') || '').toLowerCase().indexOf(searchFieldValue) > -1;
+        var isFilterMatch = !filterFieldValue ? true : (element.getAttribute('data-color') || '') === filterFieldValue;
+        return isSearchMatch && isFilterMatch;
+      });
+
+    }
+
+    function sort() {
+
+      // Do nothing if sort value did not change.
+      var currentSort = sortField.value;
+      if (sortFieldValue === currentSort) {
+        return;
+      }
+
+      // If we are changing from "order" sorting to something else
+      // let's store the drag order.
+      if (sortFieldValue === 'order') {
+        dragOrder = grid.getItems();
+      }
+
+      // Sort the items.
+      grid.sort(
+        currentSort === 'title' ? compareItemTitle :
+          currentSort === 'color' ? compareItemColor :
+            dragOrder
+      );
+
+      // Update indices and active sort value.
+      updateIndices();
+      sortFieldValue = currentSort;
+
+    }
+    // key -->
+    function addItems() {
+
+      // Generate new elements.
+      var newElems = generateElements(5);
+
+      // Set the display of the new elements to "none" so it will be hidden by
+      // default.
+      newElems.forEach(function (item) {
+        item.style.display = 'none';
+      });
+
+      // Add the elements to the grid.
+      var newItems = grid.add(newElems);
+
+      // Update UI indices.
+      updateIndices();
+
+      // Sort the items only if the drag sorting is not active.
+      if (sortFieldValue !== 'order') {
+        grid.sort(sortFieldValue === 'title' ? compareItemTitle : compareItemColor);
+        dragOrder = dragOrder.concat(newItems);
+      }
+
+      // Finally filter the items.
+      filter();
+
+    }
+
+    function removeItem(e) {
+
+      var elem = elementClosest(e.target, '.item');
+      grid.hide(elem, {
+        onFinish: function (items) {
+          var item = items[0];
+          grid.remove(item, { removeElements: true });
+          if (sortFieldValue !== 'order') {
+            var itemIndex = dragOrder.indexOf(item);
+            if (itemIndex > -1) {
+              dragOrder.splice(itemIndex, 1);
+            }
+          }
+        }
+      });
+      updateIndices();
+
+    }
+
+    function changeLayout() {
+
+      layoutFieldValue = layoutField.value;
+      grid._settings.layout = {
+        horizontal: false,
+        alignRight: layoutFieldValue.indexOf('right') > -1,
+        alignBottom: layoutFieldValue.indexOf('bottom') > -1,
+        fillGaps: layoutFieldValue.indexOf('fillgaps') > -1
+      };
+      grid.layout();
+
+    }
+
+   
+    
+    //
+    // Generic helper functions
+    //
+    // key -->
+
+
+    function generateElements(amount) {
+      var ret = [];
+
+      {% for title in ocrtext %}
+        {% for subtitle in title.body %}  
+            {% for list in subtitle.body %}
+              {% for point in list.body %}
+        var id = ++uuid;
+        var color = 'red' // getRandomItem(filterOptions);
+        var title = "{{point.text}}" // generateRandomWord(2);
+        var width =  300;
+        var height =  Math.ceil({{point.text|length}} / 25) * 14 + 50; 
+        var itemElem = document.createElement('div');
+        var itemTemplate = '' +
+          '<div style="width: ' + width + 'px; height: ' + height + 'px;" class="item  ' + color + '" data-id="' + id + '" data-color="' + color + '" data-title="' + title + '">' + // h' + height + ' w' + width + '
+          '<div class="item-content">' +
+          '<div class="card" style="padding: 20px; height:auto;overflow:auto;">' +
+          '<div class="card-id" style="overflow:auto;">' + id + '</div>' +
+          '<div style="font-size: 11.5px; line-height: 150%">' + "{{point.text}}" + '</div>' +
+          '<div class="card-remove"><i class="material-icons">&#xE5CD;</i></div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+
+        itemElem.innerHTML = itemTemplate;
+        ret.push(itemElem.firstChild);
+
+              {% endfor %}
+            {% endfor %}
+          {% endfor %}
+        {% endfor %}
+
+      return ret;
+
+    }
+
+
+    function getRandomItem(collection) {
+
+      return collection[Math.floor(Math.random() * collection.length)];
+
+    }
+
+    function generateRandomWord(length) {
+
+      var ret = '';
+      for (var i = 0; i < length; i++) {
+        ret += getRandomItem(characters);
+      }
+      return ret;
+
+    }
+
+    function compareItemTitle(a, b) {
+
+      var aVal = a.getElement().getAttribute('data-title') || '';
+      var bVal = b.getElement().getAttribute('data-title') || '';
+      return aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
+
+    }
+
+    function compareItemColor(a, b) {
+
+      var aVal = a.getElement().getAttribute('data-color') || '';
+      var bVal = b.getElement().getAttribute('data-color') || '';
+      return aVal < bVal ? -1 : aVal > bVal ? 1 : compareItemTitle(a, b);
+
+    }
+
+    function updateIndices() {
+
+      grid.getItems().forEach(function (item, i) {
+        item.getElement().setAttribute('data-id', i + 1);
+        item.getElement().querySelector('.card-id').innerHTML = i + 1;
+      });
+
+    }
+
+    function elementMatches(element, selector) {
+
+      var p = Element.prototype;
+      return (p.matches || p.matchesSelector || p.webkitMatchesSelector || p.mozMatchesSelector || p.msMatchesSelector || p.oMatchesSelector).call(element, selector);
+
+    }
+
+    function elementClosest(element, selector) {
+
+      if (window.Element && !Element.prototype.closest) {
+        var isMatch = elementMatches(element, selector);
+        while (!isMatch && element && element !== document) {
+          element = element.parentNode;
+          isMatch = element && element !== document && elementMatches(element, selector);
+        }
+        return element && element !== document ? element : null;
+      }
+      else {
+        return element.closest(selector);
+      }
+
+    }
+
+    //
+    // Fire it up!
+    //
+
+    initDemo();
+
+  });</script>
+
+</html>
+
+{% endblock %}
