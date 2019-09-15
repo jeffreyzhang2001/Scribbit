@@ -89,14 +89,14 @@ def label(text):
 							temp3 = {
 								'tag': tagtype,
 								'body': [{
-									'text': ' '.join(splitted[1:]),
+									'text': item,
 									'tag': tag
 								}]
 							}
 							inOList = True
 						else:
 							temp4 = {
-								'text': ' '.join(splitted[1:]),
+								'text': item,
 								'tag': tag
 							}
 							temp3['body'].append(temp4)
@@ -111,14 +111,14 @@ def label(text):
 							temp3 = {
 								'tag': tagtype,
 								'body': [{
-									'text': ' '.join(splitted[1:]),
+									'text': item,
 									'tag': tag
 								}]
 							}
 							inUList = True
 						else:
 							temp4 = {
-								'text': ' '.join(splitted[1:]),
+								'text': item,
 								'tag': tag
 							}
 							temp3['body'].append(temp4)
@@ -160,11 +160,7 @@ def display():
 
 	info = label(ocrtext)
 
-<<<<<<< HEAD
-	return render_template('display.html', ocrtext = ocrtext)
-=======
 	return render_template('display.html', ocrtext = info)
->>>>>>> 012e750a802aa5a4b21e3a7789f21f59236d28a7
 
 @app.route('/about')
 def about():
