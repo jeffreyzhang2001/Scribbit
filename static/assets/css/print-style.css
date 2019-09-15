@@ -1,0 +1,16 @@
+/* @import "./bulma.css";
+@import "./core.css";
+
+ */
+
+.page{
+    /* position: fixed;
+    top: 0 !important;
+    left: 0 !important;
+    background-color: rgb(0, 0, 0) !important;
+    transform: scale(0.7); */
+}
+
+.printNoShow{
+/*     display: none !important;
+ */}

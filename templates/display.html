@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
 {% block content %}
-	<html>
-		<head>
-			<title>User Display</title>
-			<link rel="icon" type="image/png" href="/static/assets/images/favicon.png" />
-			<!-- <link rel="icon" href="img/favicon.ico"> -->
-			<meta charset="utf-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-			<meta http-equiv="x-ua-compatible" content="ie=edge">
-			<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
-			<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
-			<!--Core CSS -->
-			<link rel="stylesheet" href="/static/assets/css/bulma.css">
+<html>
+
+<head>
+	<title>User Display</title>
+	<link rel="icon" type="image/png" href="/static/assets/images/favicon.png" />
+	<!-- <link rel="icon" href="img/favicon.ico"> -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+	<!--Core CSS -->
+	<link rel="stylesheet" href="/static/assets/css/bulma.css">
 			<link rel="stylesheet" href="/static/assets/css/core.css">
-			<!--Libraries-->
-			<link rel="stylesheet" href="/static/assets/fonts/cryptofont/css/cryptofont.min.css">
+	<!--Libraries-->
+		<link rel="stylesheet" href="/static/assets/fonts/cryptofont/css/cryptofont.min.css">
 			<link rel="stylesheet" href="/static/assets/js/aos/aos.css">
-			<!-- All Muuri styling contained inline: -->
-			<style>
+	<link rel="stylesheet" href="/static/assets/css/print-style.css" type="text/css" media="print" />
+	<!-- All Muuri styling contained inline: -->
+		<style>
 				.myshadow {
 					-moz-box-shadow: 0px 0px 5px 6px rgba(204, 204, 204, 0);
 					-webkit-box-shadow: 0px 0px 5px 6px rgba(204, 204, 204, 0);
@@ -679,34 +681,34 @@
 				}
 				}
 			</style>
-		</head>
+</head>
 
-		<body>
-			<div class="pageloader is-theme"></div>
-			<div class="infraloader is-active"></div>
-			<div class="dark-wrapper">
-				<section class="hero is-transparent" style="margin:auto;">
-					<div class="hero-head">
-						<!-- Cloned navbar -->
-						<!-- Cloned navbar that comes in on scroll-->
-						<nav id="navbar-clone" class="navbar is-fixed is-dark">
-							<div class="container">
-								<!-- Brand -->
-								<div class="navbar-brand">
-									<a href="/" class="navbar-item">
-										<img src="/static/assets/images/logo.png" alt="">
-									</a>
-									<!-- Responsive toggle -->
-									<span class="navbar-burger burger" data-target="navbarMenu">
-										<span></span>
-										<span></span>s
-										<span></span>
-									</span>
-								</div>
-								<!-- Menu -->
-								<div id="navbarMenu" class="navbar-menu light-menu">
-									<div class="navbar-end">
-										<!-- Menu item
+<body>
+	<div class="pageloader is-theme"></div>
+	<div class="infraloader is-active"></div>
+	<div class="dark-wrapper">
+		<section class="hero is-transparent" style="margin:auto;">
+			<div class="hero-head">
+				<!-- Cloned navbar -->
+				<!-- Cloned navbar that comes in on scroll-->
+				<nav id="navbar-clone" class="navbar is-fixed is-dark">
+					<div class="container">
+						<!-- Brand -->
+						<div class="navbar-brand">
+							<a href="/" class="navbar-item">
+								<img src="/static/assets/images/logo.png" alt="">
+							</a>
+							<!-- Responsive toggle -->
+							<span class="navbar-burger burger" data-target="navbarMenu">
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+						</div>
+						<!-- Menu -->
+						<div id="navbarMenu" class="navbar-menu light-menu">
+							<div class="navbar-end">
+								<!-- Menu item
 										<div class="navbar-item is-nav-link">
 												<a class="is-centered-responsive" href="#" target="_blank">
 														<img class="telegram" src="assets/images/logo/telegram.svg" alt="">
@@ -714,38 +716,38 @@
 												</a>
 										</div>
 										-->
-										<!-- About us -->
-										<div class="navbar-item">
-											<a href="/about" class="button k-button k-primary raised has-gradient slanted">
-												<span class="text">About Us</span>
-												<span class="front-gradient"></span>
-											</a>
-										</div>
-									</div>
+								<!-- About us -->
+								<div class="navbar-item">
+									<a href="/about" class="button k-button k-primary raised has-gradient slanted">
+										<span class="text">About Us</span>
+										<span class="front-gradient"></span>
+									</a>
 								</div>
 							</div>
-						</nav>
-						<!-- /Cloned navbar -->
-						<!-- Static navbar -->
-						<!-- Static navbar -->
-						<nav class="navbar is-light">
-							<div class="container">
-								<!-- Brand -->
-								<div class="navbar-brand">
-									<a href="/" class="navbar-item">
-										<img src="/static/assets/images/logo.png" alt="" height="200px" width="150px">
-									</a>
-									<!-- Responsive toggle -->
-									<span class="navbar-burger burger" data-target="navbarMenu">
-										<span></span>
-										<span></span>
-										<span></span>
-									</span>
-								</div>
-								<!-- Menu -->
-								<div id="navbarMenu" class="navbar-menu light-menu">
-									<div class="navbar-end">
-										<!-- Menu item
+						</div>
+					</div>
+				</nav>
+				<!-- /Cloned navbar -->
+				<!-- Static navbar -->
+				<!-- Static navbar -->
+				<nav class="navbar is-light">
+					<div class="container">
+						<!-- Brand -->
+						<div class="navbar-brand">
+							<a href="/" class="navbar-item">
+								<img src="/static/assets/images/logo.png" alt="" height="200px" width="150px">
+							</a>
+							<!-- Responsive toggle -->
+							<span class="navbar-burger burger" data-target="navbarMenu">
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+						</div>
+						<!-- Menu -->
+						<div id="navbarMenu" class="navbar-menu light-menu">
+							<div class="navbar-end">
+								<!-- Menu item
 										<div class="navbar-item is-nav-link">
 												<a class="is-centered-responsive" href="#" target="_blank">
 														<img class="telegram" src="assets/images/logo/telegram.svg" alt="">
@@ -753,18 +755,15 @@
 												</a>
 										</div>
 										-->
-										<!-- About us -->
-										<div class="navbar-item">
-											<a href="/about" class="button k-button k-primary raised has-gradient slanted">
-												<span class="text">About Us</span>
-												<span class="front-gradient"></span>
-											</a>
-										</div>
-									</div>
+								<!-- About us -->
+								<div class="navbar-item">
+									<a href="/about" class="button k-button k-primary raised has-gradient slanted">
+										<span class="text">About Us</span>
+										<span class="front-gradient"></span>
+									</a>
 								</div>
 							</div>
-						</nav>
-						<!-- /Static navbar -->
+						</div>
 					</div>
 				</section>
 				<div class="container" style="width: 914px; padding: 32px;">
@@ -811,27 +810,27 @@
 											{% endfor %}
 										</div>
 									{% endfor %}
+<<<<<<< HEAD
 							</div>
 						{% endfor %}
+=======
+								</div>
+							</div>
+						</div>
+>>>>>>> 52045857741aecc320fe262a188d17091512c807
 						
 						<div class="grid-footer">
 							<button class="add-more-items btn btn-primary" onclick="addBox()"><i class="material-icons">&#xE145;</i>Add more items</button>
 						</div>
+						{% endif %}
+						{% endfor %}
 					</div>
+					{% endfor %}
 				</div>
-			</div>
-			<footer class="krypton-footer">
-				<div class="container" style="">
-					<!-- Logo -->
-					<div class="footer-logo">
-						<a href="#">
-							<img src="/static/assets/images/logo.png" alt="">
-							<div class="brand-subtitle">Helping your notes take off</div>
-						</a>
-					</div>
-					<br>
-					<p class="k-copyright">© 2019 | Scribbit. All Rights Reserved</p>
-					<br>
+
+				<div class="grid-footer">
+					<button class="add-more-items btn btn-primary"><i class="material-icons">&#xE145;</i>Add more
+						items</button>
 				</div>
 			</footer>
 			<script src="/static/assets/js/app.js"></script>
@@ -880,21 +879,21 @@
 				dragEnabled: true,
 				dragSort: function () {
 				return columnGrids;
-				},
-				dragSortInterval: 0,
-				dragContainer: document.body,
-				dragReleaseDuration: 400,
-				dragReleaseEasing: 'ease'
-				})
-				.on('dragStart', function (item) {
+			},
+			dragSortInterval: 0,
+			dragContainer: document.body,
+			dragReleaseDuration: 400,
+			dragReleaseEasing: 'ease'
+		})
+			.on('dragStart', function (item) {
 				// Let's set fixed widht/height to the dragged item
 				// so that it does not stretch unwillingly when
 				// it's appended to the document body for the
 				// duration of the drag.
 				item.getElement().style.width = item.getWidth() + 'px';
 				item.getElement().style.height = item.getHeight() + 'px';
-				})
-				.on('dragReleaseEnd', function (item) {
+			})
+			.on('dragReleaseEnd', function (item) {
 				// Let's remove the fixed width/height from the
 				// dragged item now that it is back in a grid
 				// column and can freely adjust to it's
@@ -905,43 +904,44 @@
 				// in case dragging the item caused some other items to
 				// be different size.
 				columnGrids.forEach(function (grid) {
-				grid.refreshItems();
+					grid.refreshItems();
 				});
-				})
-				.on('layoutStart', function () {
+			})
+			.on('layoutStart', function () {
 				// Let's keep the board grid up to date with the
 				// dimensions changes of column grids.
 				boardGrid.refreshItems().layout();
-				});
-				// Add the column grid reference to the column grids
-				// array, so we can access it later on.
-				columnGrids.push(grid);
-				});
-				// Instantiate the board grid so we can drag those
-				// columns around.
-				boardGrid = new Muuri('.board', {
-				layoutDuration: 400,
-				layoutEasing: 'ease',
-				dragEnabled: true,
-				dragSortInterval: 0,
-				dragStartPredicate: {
-				handle: '.board-column-header',
-				},
-				dragReleaseDuration: 400,
-				dragReleaseEasing: 'ease'
-				});
-				boardGrid = new Muuri('.board', {
-				layoutDuration: 400,
-				layoutEasing: 'ease',
-				dragEnabled: true,
-				dragSortInterval: 0,
-				dragStartPredicate: {
-				handle: '.board-column-text',
-				},
-				dragReleaseDuration: 400,
-				dragReleaseEasing: 'ease'
-				});
-			
-		</script>
-	</html>
+			});
+		// Add the column grid reference to the column grids
+		// array, so we can access it later on.
+		columnGrids.push(grid);
+	});
+	// Instantiate the board grid so we can drag those
+	// columns around.
+	boardGrid = new Muuri('.board', {
+		layoutDuration: 400,
+		layoutEasing: 'ease',
+		dragEnabled: true,
+		dragSortInterval: 0,
+		dragStartPredicate: {
+			handle: '.board-column-header',
+		},
+		dragReleaseDuration: 400,
+		dragReleaseEasing: 'ease'
+	});
+	boardGrid = new Muuri('.board', {
+		layoutDuration: 400,
+		layoutEasing: 'ease',
+		dragEnabled: true,
+		dragSortInterval: 0,
+		dragStartPredicate: {
+			handle: '.board-column-text',
+		},
+		dragReleaseDuration: 400,
+		dragReleaseEasing: 'ease'
+	});
+
+</script>
+
+</html>
 {% endblock %}
